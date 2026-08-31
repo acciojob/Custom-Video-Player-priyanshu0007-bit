@@ -13,7 +13,6 @@ const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
 
-// PLAY / PAUSE
 function togglePlay() {
   if (video.paused) {
     video.play();
@@ -25,11 +24,9 @@ function togglePlay() {
 }
 
 
-// PLAY / PAUSE BUTTON
 toggle.addEventListener('click', togglePlay);
 
 
-// Keep button correct when video state changes
 video.addEventListener('play', function () {
   toggle.innerHTML = '❚ ❚';
 });
@@ -39,20 +36,19 @@ video.addEventListener('pause', function () {
 });
 
 
-// PROGRESS BAR
 function handleProgress() {
-  if (video.duration) {
-    const percent = (video.currentTime / video.duration) * 100;
-    progressBar.style.width = percent + '%';
-  }
+  const percent = (video.currentTime / video.duration) * 100;
+
+  progressBar.style.width = percent + '%';
+  progressBar.style.flexBasis = percent + '%';
 }
 
-
-// Update progress while video plays
 video.addEventListener('timeupdate', handleProgress);
 
 
-// VOLUME
+video.addEventListener('timeupdate', handleProgress);
+
+
 function handleRangeUpdate() {
   if (this.name === 'volume') {
     video.volume = this.value;
@@ -68,7 +64,6 @@ ranges.forEach(function (range) {
 });
 
 
-// SKIP BUTTONS
 function skip() {
   video.currentTime += Number(this.dataset.skip);
 }
@@ -78,7 +73,6 @@ skipButtons.forEach(function (button) {
 });
 
 
-// PROGRESS BAR CLICK
 function scrub(e) {
   const scrubTime =
     (e.offsetX / progress.offsetWidth) * video.duration;
